@@ -8,6 +8,7 @@ import reducers from './reducers';
 //Sqlite
 import CreateTable from './res/manager/CreateTable';
 
+console.disableYellowBox = true;
 class App extends Component {
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
