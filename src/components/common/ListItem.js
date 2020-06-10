@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Text, TouchableWithoutFeedback, View} from 'react-native';
 import {connect} from 'react-redux';
+import {heightToDp, widthToDp} from '../Responsive';
 
 //ACTIONS
 import {selectedHabit, deleteHabit} from '../../actions';
@@ -30,10 +31,10 @@ class ListItem extends Component {
               <Text style={styles.titleStyle}>{habit}</Text>
             </CardSection>
             <CardSection style={styles.cardSectionStyle}>
-              <Text style={styles.titleStyle}>{date}</Text>
+              <Text style={styles.dateStyle}>{date}</Text>
             </CardSection>
             <CardSection style={styles.cardSectionStyle}>
-              <Text style={styles.titleStyle}>{why}</Text>
+              <Text style={styles.whyStyle}>{why}</Text>
             </CardSection>
           </Card>
         </View>
@@ -44,7 +45,15 @@ class ListItem extends Component {
 
 const styles = {
   titleStyle: {
-    fontSize: 18,
+    fontSize: widthToDp(4),
+    paddingLeft: 15,
+  },
+  dateStyle: {
+    fontSize: widthToDp(3),
+    paddingLeft: 15,
+  },
+  whyStyle: {
+    fontSize: widthToDp(3),
     paddingLeft: 15,
   },
   cardSectionStyle: {

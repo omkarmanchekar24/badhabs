@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
+import {heightToDp, widthToDp} from '../Responsive';
 
 class TimeInput extends Component {
   state = {
@@ -33,7 +34,7 @@ class TimeInput extends Component {
         <Text style={labelStyle}>{this.props.label}</Text>
 
         <TouchableOpacity style={timeStyle} onPress={this.showPicker}>
-          <Text>{this.props.value}</Text>
+          <Text style={styles.textStyle}>{this.props.value}</Text>
         </TouchableOpacity>
 
         <DateTimePicker
@@ -49,18 +50,21 @@ class TimeInput extends Component {
 
 const styles = {
   labelStyle: {
-    fontSize: 18,
-    paddingLeft: 20,
+    fontSize: widthToDp(4),
+    paddingLeft: widthToDp(6),
     flex: 1,
   },
   containerStyle: {
-    height: 40,
+    height: heightToDp(8),
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
   },
   timeStyle: {
     flex: 2,
+  },
+  textStyle: {
+    fontSize: widthToDp(3),
   },
 };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, TextInput, Text} from 'react-native';
+import {widthToDp, heightToDp} from '../Responsive';
 
 const Input = ({
   label,
@@ -32,19 +33,19 @@ const Input = ({
 const styles = {
   inputStyle: {
     color: '#000',
-    paddingRight: 5,
-    paddingLeft: 5,
-    fontSize: 18,
-    lineHeight: 23,
+    paddingRight: widthToDp(2),
+    paddingLeft: widthToDp(2),
+    paddingTop: heightToDp(2),
+    fontSize: widthToDp(3),
     flex: 2,
   },
   labelStyle: {
-    fontSize: 18,
-    paddingLeft: 20,
+    fontSize: widthToDp(4),
+    paddingLeft: widthToDp(6),
     flex: 1,
   },
   containerStyle: {
-    height: 40,
+    height: heightToDp(8),
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',

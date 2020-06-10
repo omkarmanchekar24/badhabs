@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
-import moment from 'moment';
+import {widthToDp, heightToDp} from './Responsive';
 
 //Components
 import ListItem from './common/ListItem';
@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
 
   TouchableOpacityStyle: {
     position: 'absolute',
-    width: 50,
-    height: 50,
+    width: widthToDp(20),
+    height: heightToDp(10),
     alignItems: 'center',
     justifyContent: 'center',
     right: 30,

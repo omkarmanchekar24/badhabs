@@ -21,6 +21,7 @@ import {
   createHabit,
   fetchDate,
 } from '../actions';
+import {heightToDp} from './Responsive';
 
 class CreateHabit extends Component {
   onNameChange(text) {
@@ -83,8 +84,8 @@ class CreateHabit extends Component {
               value={this.props.why}
               onChangeText={this.onWhyChange.bind(this)}
               multiline={true}
-              numberOfLines={4}
-              style={{height: 100}}
+              numberOfLines={2}
+              style={{height: heightToDp(10)}}
             />
           </CardSection>
           {this.renderError()}
