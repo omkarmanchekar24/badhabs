@@ -18,8 +18,9 @@ const RouterComponent = () => {
             initial
           />
         </Scene>
-        <Scene key="creates">
+        <Scene key="creates" hideNavBar>
           <Scene
+            hideNavBar
             key="createHabit"
             component={CreateHabit}
             title="Create Habit"

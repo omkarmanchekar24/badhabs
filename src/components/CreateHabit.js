@@ -12,6 +12,7 @@ import Button from './common/Button';
 //import DateInput from './common/DateInput';
 import TimeInput from './common/TimeInput';
 import Spinner from './common/Spinner';
+import Header from './common/Header';
 
 //ACTIONS
 import {
@@ -61,6 +62,7 @@ class CreateHabit extends Component {
   render() {
     return (
       <View style={styles.MainContainer}>
+        <Header headerText="Create Habbit" />
         <Card>
           <CardSection>
             <Input

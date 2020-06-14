@@ -1,29 +1,67 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View, Text} from 'react-native';
+import {Appbar, Menu, Button, Divider, MenuItem} from 'react-native-paper';
+import {heightToDp, widthToDp} from '../Responsive';
 
-const Header = props => {
-  const {textStyle, viewStyle} = styles;
+class Header extends React.Component {
+  state = {
+    visible: false,
+  };
 
-  return (
-    <View style={viewStyle}>
-      <Text style={textStyle}>{props.headerText}</Text>
-    </View>
-  );
-};
+  toggleModal() {
+    this.setState({
+      visible: !this.state.visible,
+    });
+  }
+
+  renderMenu() {
+    return (
+      <View>
+        <Menu.Item icon="redo" onPress={() => {}} title="Redo" />
+        <Menu.Item icon="undo" onPress={() => {}} title="Undo" />
+        <Menu.Item icon="content-cut" onPress={() => {}} title="Cut" disabled />
+        <Menu.Item
+          icon="content-copy"
+          onPress={() => {}}
+          title="Copy"
+          disabled
+        />
+        <Menu.Item icon="content-paste" onPress={() => {}} title="Paste" />
+      </View>
+    );
+  }
+
+  _openMenu() {}
+  render() {
+    return (
+      <View>
+        <Appbar.Header style={styles.containerStyle}>
+          <Appbar.Content
+            title="Your Habits"
+            style={styles.contentStyle}
+            titleStyle={styles.titleStyle}
+          />
+          <Appbar.Action icon="magnify" onPress={this._handleSearch} />
+          <Appbar.Action
+            icon="dots-vertical"
+            onPress={() => console.log('pressed')}
+          />
+        </Appbar.Header>
+      </View>
+    );
+  }
+}
 
 const styles = {
-  viewStyle: {
-    backgroundColor: '#F8F8F8',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 60,
-    paddingTop: 15,
-    elevation: 5,
-    position: 'relative',
+  containerStyle: {
+    backgroundColor: '#546',
   },
-  textStyle: {
-    fontSize: 20,
+  contentStyle: {
+    alignItems: 'center',
+  },
+  titleStyle: {
+    fontSize: widthToDp(4),
+    marginLeft: widthToDp(20),
   },
 };
-
 export default Header;

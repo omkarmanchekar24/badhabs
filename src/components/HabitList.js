@@ -1,30 +1,21 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
-import {
-  StyleSheet,
-  View,
-  Image,
-  TouchableOpacity,
-  FlatList,
-} from 'react-native';
+import {StyleSheet, View, FlatList} from 'react-native';
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
 import {widthToDp, heightToDp} from './Responsive';
+//import {FAB, Portal} from 'react-native-paper ';
 
 //Components
 import ListItem from './common/ListItem';
+import Header from './common/Header';
+import FloatingButton from './common/FloatingButton';
 
 //Actions
 import {habitsFetch, fetchDate} from '../actions';
 
 class HabitList extends Component {
-  onClick() {
-    this.setState({
-      flag: !this.state.flag,
-    });
-  }
-
-  SampleFunction = () => {
+  floatClicked = () => {
     Actions.creates();
   };
 
@@ -37,6 +28,7 @@ class HabitList extends Component {
     //console.log(this.props.habits);
     return (
       <View style={styles.MainContainer}>
+        <Header headerText="Your Habits" />
         <FlatList
           data={this.props.habits}
           renderItem={({item}) => {
@@ -44,18 +36,7 @@ class HabitList extends Component {
           }}
           keyExtractor={habit => habit.id.toString()}
         />
-        <TouchableOpacity
-          activeOpacity={0.5}
-          onPress={this.SampleFunction}
-          style={styles.TouchableOpacityStyle}>
-          <Image
-            source={{
-              uri:
-                'https://reactnativecode.com/wp-content/uploads/2017/11/Floating_Button.png',
-            }}
-            style={styles.FloatingButtonStyle}
-          />
-        </TouchableOpacity>
+        <FloatingButton onPress={this.floatClicked} />
       </View>
     );
   }
