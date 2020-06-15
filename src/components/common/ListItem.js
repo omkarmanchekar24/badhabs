@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import {Platform, TouchableWithoutFeedback, View} from 'react-native';
 import {connect} from 'react-redux';
 import {widthToDp} from '../Responsive';
-import {Card, Paragraph, IconButton} from 'react-native-paper';
+import {Card, Paragraph, IconButton, Caption} from 'react-native-paper';
 //ACTIONS
 import {selectedHabit, deleteHabit} from '../../actions';
+import {Actions} from 'react-native-router-flux';
 
 class ListItem extends Component {
   render() {
@@ -14,7 +15,7 @@ class ListItem extends Component {
     return (
       <TouchableWithoutFeedback
         onPress={() => {
-          this.props.deleteHabit(id);
+          Actions.habitDetails({habit, date, why, id});
         }}>
         <View>
           <Card style={styles.cardStyle}>
@@ -25,8 +26,8 @@ class ListItem extends Component {
               )}
             />
             <Card.Content style={styles.contentStyle}>
+              <Caption style={styles.paragraphStyle}>Date</Caption>
               <Paragraph style={styles.paragraphStyle}>{date}</Paragraph>
-              <Paragraph style={styles.paragraphStyle}>{why}</Paragraph>
             </Card.Content>
           </Card>
         </View>

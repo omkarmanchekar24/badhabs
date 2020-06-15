@@ -11,32 +11,13 @@ import Input from './common/Input';
 import Button from './common/Button';
 //import DateInput from './common/DateInput';
 import TimeInput from './common/TimeInput';
-import Spinner from './common/Spinner';
 import Header from './common/Header';
 
 //ACTIONS
-import {
-  nameChanged,
-  dateChanged,
-  whyChanged,
-  createHabit,
-  fetchDate,
-} from '../actions';
+import {habitUpdate, createHabit, fetchDate} from '../actions';
 import {heightToDp} from './Responsive';
 
 class CreateHabit extends Component {
-  onNameChange(text) {
-    this.props.nameChanged(text);
-  }
-
-  onDateChange(text) {
-    this.props.dateChanged(text);
-  }
-
-  onWhyChange(text) {
-    this.props.whyChanged(text);
-  }
-
   create() {
     //id  INTEGER PRIMARY KEY AUTOINCREMENT,habit text, date TEXT,why TEXT
     const {name, date, why} = this.props;
@@ -68,7 +49,9 @@ class CreateHabit extends Component {
             <Input
               label="Name"
               placeholder="habit"
-              onChangeText={this.onNameChange.bind(this)}
+              onChangeText={text =>
+                this.props.habitUpdate({prop: 'name', value: text})
+              }
               value={this.props.name}
             />
           </CardSection>
@@ -76,7 +59,9 @@ class CreateHabit extends Component {
             <TimeInput
               label="Date"
               value={this.props.date}
-              onDateChange={this.onDateChange.bind(this)}
+              onDateChange={text =>
+                this.props.habitUpdate({prop: 'date', value: text})
+              }
             />
           </CardSection>
           <CardSection>
@@ -84,7 +69,9 @@ class CreateHabit extends Component {
               label="Why"
               placeholder="why"
               value={this.props.why}
-              onChangeText={this.onWhyChange.bind(this)}
+              onChangeText={text =>
+                this.props.habitUpdate({prop: 'why', value: text})
+              }
               multiline={true}
               numberOfLines={2}
               style={{height: heightToDp(10)}}
@@ -149,5 +136,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  {nameChanged, dateChanged, whyChanged, createHabit, fetchDate},
+  {habitUpdate, createHabit, fetchDate},
 )(CreateHabit);

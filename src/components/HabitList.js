@@ -24,11 +24,9 @@ class HabitList extends Component {
   }
 
   render() {
-    //[{id: 1, habit: 'abc', why: 'xyz'}]
-    //console.log(this.props.habits);
     return (
       <View style={styles.MainContainer}>
-        <Header headerText="Your Habits" />
+        <Header headerText="Your Habits" search={true} />
         <FlatList
           data={this.props.habits}
           renderItem={({item}) => {
@@ -42,27 +40,7 @@ class HabitList extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  MainContainer: {
-    flex: 1,
-  },
-
-  TouchableOpacityStyle: {
-    position: 'absolute',
-    width: widthToDp(20),
-    height: heightToDp(10),
-    alignItems: 'center',
-    justifyContent: 'center',
-    right: 30,
-    bottom: 30,
-  },
-
-  FloatingButtonStyle: {
-    resizeMode: 'contain',
-    width: 50,
-    height: 50,
-  },
-});
+const styles = StyleSheet.create({MainContainer: {flex: 1}});
 
 const mapStateToProps = state => {
   const habits = _.map(state.habits.habit, (val, uid) => {

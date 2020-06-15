@@ -4,6 +4,7 @@ import {Scene, Router, Actions} from 'react-native-router-flux';
 //Components
 import HabitList from './components//HabitList';
 import CreateHabit from './components/CreateHabit';
+import HabitDetails from './components/HabitDetails';
 
 const RouterComponent = () => {
   return (
@@ -16,6 +17,12 @@ const RouterComponent = () => {
             title="Habits"
             titleStyle={styles.titleStyle}
             initial
+          />
+          <Scene
+            key="habitDetails"
+            component={HabitDetails}
+            title="Habits"
+            titleStyle={styles.titleStyle}
           />
         </Scene>
         <Scene key="creates" hideNavBar>

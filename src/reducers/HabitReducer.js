@@ -1,7 +1,5 @@
 import {
-  NAME_CHANGED,
-  DATE_CHANGED,
-  WHY_CHANGED,
+  HABIT_UPDATE,
   CREATE_HABIT,
   CREATE_HABIT_FAILED,
   HABITS_FETCH_SUCCESS,
@@ -21,12 +19,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case NAME_CHANGED:
-      return {...state, name: action.payload};
-    case DATE_CHANGED:
-      return {...state, date: action.payload};
-    case WHY_CHANGED:
-      return {...state, why: action.payload};
+    case HABIT_UPDATE:
+      return {...state, [action.payload.prop]: action.payload.value};
     case FETCH_DATE:
       return {...state, date: action.payload};
     case CREATE_HABIT:

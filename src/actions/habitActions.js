@@ -7,6 +7,7 @@ import {
   NAME_CHANGED,
   DATE_CHANGED,
   WHY_CHANGED,
+  HABIT_UPDATE,
   CREATE_HABIT,
   CREATE_HABIT_FAILED,
   HABITS_FETCH_SUCCESS,
@@ -42,6 +43,13 @@ export const whyChanged = text => {
   return {
     type: WHY_CHANGED,
     payload: text,
+  };
+};
+
+export const habitUpdate = ({prop, value}) => {
+  return {
+    type: HABIT_UPDATE,
+    payload: {prop, value},
   };
 };
 
