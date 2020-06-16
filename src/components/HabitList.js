@@ -52,7 +52,7 @@ class HabitList extends Component {
 
         {this.renderList()}
 
-        <FloatingButton onPress={this.floatClicked} />
+        <FloatingButton icon="plus" onPress={this.floatClicked} />
       </View>
     );
   }

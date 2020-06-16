@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, Image, TouchableOpacity, View} from 'react-native';
+import {Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
 import moment from 'moment';
@@ -12,10 +12,11 @@ import Button from './common/Button';
 //import DateInput from './common/DateInput';
 import TimeInput from './common/TimeInput';
 import Header from './common/Header';
+import FloatingButton from './common/FloatingButton';
 
 //ACTIONS
 import {habitUpdate, createHabit, fetchDate} from '../actions';
-import {heightToDp} from './Responsive';
+import {heightToDp, widthToDp} from './Responsive';
 
 class CreateHabit extends Component {
   create() {
@@ -82,16 +83,7 @@ class CreateHabit extends Component {
             <Button onPress={this.create.bind(this)}>Create</Button>
           </CardSection>
         </Card>
-
-        <TouchableOpacity
-          activeOpacity={0.5}
-          onPress={this.SampleFunction}
-          style={styles.TouchableOpacityStyle}>
-          <Image
-            source={require('../images/back.png')}
-            style={styles.FloatingButtonStyle}
-          />
-        </TouchableOpacity>
+        <FloatingButton icon="arrow-left" style={{right: widthToDp(75)}} />
       </View>
     );
   }
@@ -105,22 +97,6 @@ const styles = {
   },
   MainContainer: {
     flex: 1,
-  },
-
-  TouchableOpacityStyle: {
-    position: 'absolute',
-    width: 50,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    right: 320,
-    bottom: 30,
-  },
-
-  FloatingButtonStyle: {
-    resizeMode: 'contain',
-    width: 50,
-    height: 50,
   },
 };
 

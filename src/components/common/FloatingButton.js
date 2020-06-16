@@ -5,7 +5,12 @@ import {widthToDp, heightToDp} from '../Responsive';
 
 export default function FloatingButton(props) {
   return (
-    <FAB style={styles.fab} large icon="plus" onPress={() => props.onPress()} />
+    <FAB
+      style={[styles.fab, props.style]}
+      large
+      icon={props.icon}
+      onPress={() => props.onPress()}
+    />
   );
 }
 
