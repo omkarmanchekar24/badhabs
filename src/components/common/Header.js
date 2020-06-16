@@ -1,41 +1,35 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Appbar, Menu, Searchbar} from 'react-native-paper';
+import {Appbar, Searchbar} from 'react-native-paper';
 import {widthToDp} from '../Responsive';
 
 class Header extends React.Component {
   state = {
-    searchQuery: '',
-    showSearch: false,
+    showSearchBar: false,
   };
 
-  componentWillUnmount() {
-    this.setState({
-      showSearch: false,
-    });
-  }
-
-  toggleModal() {
-    this.setState({
-      visible: !this.state.visible,
-    });
-  }
-
-  onChangeSearch(text) {}
-
   renderSearchInput = () => {
-    if (this.state.showSearch) {
+    if (this.state.showSearchBar) {
       return (
         <View>
           <Searchbar
+            autoFocus={true}
+            icon="arrow-left"
+            onIconPress={() => {
+              this.setState({
+                showSearchBar: !this.state.showSearchBar,
+              });
+            }}
+            onBlur={() => {
+              this.props.onChangeText('');
+              this.setState({showSearchBar: false});
+            }}
+            clearTextOnFocus={true}
+            value={this.props.search}
             placeholder="Search"
-            onChangeText={this.onChangeSearch.bind(this)}
-            value={this.state.searchQuery}
+            onChangeText={text => this.props.onChangeText(text)}
             style={styles.searchStyle}
             iconColor="white"
-            onBlur={() => {
-              this.setState({showSearch: !this.state.showSearch});
-            }}
           />
         </View>
       );
@@ -49,17 +43,15 @@ class Header extends React.Component {
     );
   };
 
-  renderSearch = () => {
-    if (this.props.search) {
+  renderSearchButton = () => {
+    if (this.props.searchIcon) {
       return (
         <Appbar.Action
           style={styles.actionStyle}
           icon="magnify"
-          onPress={() =>
-            this.setState({
-              showSearch: !this.state.showSearch,
-            })
-          }
+          onPress={() => {
+            this.setState({showSearchBar: !this.state.showSearchBar});
+          }}
         />
       );
     }
@@ -70,7 +62,7 @@ class Header extends React.Component {
       <View>
         <Appbar.Header style={styles.containerStyle}>
           {this.renderSearchInput()}
-          {this.renderSearch()}
+          {this.renderSearchButton()}
           <Appbar.Action
             style={styles.actionStyle}
             icon="dots-vertical"
@@ -86,7 +78,7 @@ const styles = {
   containerStyle: {
     backgroundColor: '#546',
   },
-  contentStyle: {marginLeft: widthToDp(28)},
+  contentStyle: {marginLeft: widthToDp(30)},
   actionStyle: {},
   titleStyle: {
     fontSize: widthToDp(4),
