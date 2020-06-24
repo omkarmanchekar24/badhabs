@@ -16,6 +16,7 @@ class Header extends React.Component {
             autoFocus={true}
             icon="arrow-left"
             onIconPress={() => {
+              this.props.onChangeText('');
               this.setState({
                 showSearchBar: !this.state.showSearchBar,
               });
@@ -83,6 +84,11 @@ const styles = {
   titleStyle: {
     fontSize: widthToDp(4),
   },
-  searchStyle: {backgroundColor: '#546', width: 0, minWidth: '100%'},
+  searchStyle: {
+    backgroundColor: '#546',
+    width: 0,
+    minWidth: '100%',
+    color: 'white',
+  },
 };
 export default Header;

@@ -83,7 +83,11 @@ class CreateHabit extends Component {
             <Button onPress={this.create.bind(this)}>Create</Button>
           </CardSection>
         </Card>
-        <FloatingButton icon="arrow-left" style={{right: widthToDp(75)}} />
+        <FloatingButton
+          onPress={() => Actions.main()}
+          icon="arrow-left"
+          style={{right: widthToDp(75)}}
+        />
       </View>
     );
   }

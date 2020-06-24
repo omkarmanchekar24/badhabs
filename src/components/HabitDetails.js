@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {View, ScrollView} from 'react-native';
+import {Actions} from 'react-native-router-flux';
 import {widthToDp} from '../components/Responsive';
 import {Card, Title, Paragraph} from 'react-native-paper';
 
 import Header from './common/Header';
+import FloatingButton from './common/FloatingButton';
 
 export default class HabitDetails extends Component {
   render() {
@@ -46,6 +48,11 @@ export default class HabitDetails extends Component {
             </Card.Content>
           </Card>
         </ScrollView>
+        <FloatingButton
+          onPress={() => Actions.main()}
+          icon="arrow-left"
+          style={{right: widthToDp(75)}}
+        />
       </View>
     );
   }
