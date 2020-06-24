@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, Image, TouchableOpacity, View} from 'react-native';
+import {Text, View, ToastAndroid} from 'react-native';
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
 import moment from 'moment';
@@ -11,31 +11,14 @@ import Input from './common/Input';
 import Button from './common/Button';
 //import DateInput from './common/DateInput';
 import TimeInput from './common/TimeInput';
-import Spinner from './common/Spinner';
+import Header from './common/Header';
+import FloatingButton from './common/FloatingButton';
 
 //ACTIONS
-import {
-  nameChanged,
-  dateChanged,
-  whyChanged,
-  createHabit,
-  fetchDate,
-} from '../actions';
-import {heightToDp} from './Responsive';
+import {habitUpdate, createHabit, fetchDate, changeScreen} from '../actions';
+import {heightToDp, widthToDp} from './Responsive';
 
 class CreateHabit extends Component {
-  onNameChange(text) {
-    this.props.nameChanged(text);
-  }
-
-  onDateChange(text) {
-    this.props.dateChanged(text);
-  }
-
-  onWhyChange(text) {
-    this.props.whyChanged(text);
-  }
-
   create() {
     //id  INTEGER PRIMARY KEY AUTOINCREMENT,habit text, date TEXT,why TEXT
     const {name, date, why} = this.props;
@@ -58,15 +41,21 @@ class CreateHabit extends Component {
     this.props.fetchDate(date);
   }
 
+  componentWillUnmount() {
+    ToastAndroid.show('Unmounted', ToastAndroid.SHORT);
+  }
   render() {
     return (
       <View style={styles.MainContainer}>
+        <Header headerText="Create Habbit" />
         <Card>
           <CardSection>
             <Input
               label="Name"
               placeholder="habit"
-              onChangeText={this.onNameChange.bind(this)}
+              onChangeText={text =>
+                this.props.habitUpdate({prop: 'name', value: text})
+              }
               value={this.props.name}
             />
           </CardSection>
@@ -74,7 +63,9 @@ class CreateHabit extends Component {
             <TimeInput
               label="Date"
               value={this.props.date}
-              onDateChange={this.onDateChange.bind(this)}
+              onDateChange={text =>
+                this.props.habitUpdate({prop: 'date', value: text})
+              }
             />
           </CardSection>
           <CardSection>
@@ -82,7 +73,9 @@ class CreateHabit extends Component {
               label="Why"
               placeholder="why"
               value={this.props.why}
-              onChangeText={this.onWhyChange.bind(this)}
+              onChangeText={text =>
+                this.props.habitUpdate({prop: 'why', value: text})
+              }
               multiline={true}
               numberOfLines={2}
               style={{height: heightToDp(10)}}
@@ -93,16 +86,11 @@ class CreateHabit extends Component {
             <Button onPress={this.create.bind(this)}>Create</Button>
           </CardSection>
         </Card>
-
-        <TouchableOpacity
-          activeOpacity={0.5}
-          onPress={this.SampleFunction}
-          style={styles.TouchableOpacityStyle}>
-          <Image
-            source={require('../images/back.png')}
-            style={styles.FloatingButtonStyle}
-          />
-        </TouchableOpacity>
+        <FloatingButton
+          onPress={() => Actions.main()}
+          icon="arrow-left"
+          style={{right: widthToDp(75)}}
+        />
       </View>
     );
   }
@@ -117,35 +105,20 @@ const styles = {
   MainContainer: {
     flex: 1,
   },
-
-  TouchableOpacityStyle: {
-    position: 'absolute',
-    width: 50,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    right: 320,
-    bottom: 30,
-  },
-
-  FloatingButtonStyle: {
-    resizeMode: 'contain',
-    width: 50,
-    height: 50,
-  },
 };
 
 const mapStateToProps = state => {
-  const {name, date, why, error} = state.habits;
+  const {name, date, why, error, screen} = state.habits;
   return {
     name,
     date,
     why,
     error,
+    screen,
   };
 };
 
 export default connect(
   mapStateToProps,
-  {nameChanged, dateChanged, whyChanged, createHabit, fetchDate},
+  {habitUpdate, createHabit, fetchDate, changeScreen},
 )(CreateHabit);

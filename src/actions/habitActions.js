@@ -7,11 +7,13 @@ import {
   NAME_CHANGED,
   DATE_CHANGED,
   WHY_CHANGED,
+  HABIT_UPDATE,
   CREATE_HABIT,
   CREATE_HABIT_FAILED,
   HABITS_FETCH_SUCCESS,
   DELETE_HABIT,
   FETCH_DATE,
+  CHANGE_SCREEN,
 } from './types';
 
 var db = SQLite.openDatabase(
@@ -42,6 +44,13 @@ export const whyChanged = text => {
   return {
     type: WHY_CHANGED,
     payload: text,
+  };
+};
+
+export const habitUpdate = ({prop, value}) => {
+  return {
+    type: HABIT_UPDATE,
+    payload: {prop, value},
   };
 };
 
@@ -133,5 +142,12 @@ export const fetchDate = date => {
   return {
     type: FETCH_DATE,
     payload: date,
+  };
+};
+
+export const changeScreen = screen => {
+  return {
+    type: CHANGE_SCREEN,
+    payload: screen,
   };
 };

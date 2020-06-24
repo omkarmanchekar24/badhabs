@@ -1,30 +1,26 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
-import {
-  StyleSheet,
-  View,
-  Image,
-  TouchableOpacity,
-  FlatList,
-} from 'react-native';
+import {StyleSheet, View, Text, ToastAndroid, BackHandler} from 'react-native';
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
-import {widthToDp, heightToDp} from './Responsive';
+//import {widthToDp, heightToDp} from './Responsive';
+//import {FAB, Portal} from 'react-native-paper ';
 
 //Components
-import ListItem from './common/ListItem';
+import Header from './common/Header';
+import FloatingButton from './common/FloatingButton';
+import List from './List';
 
 //Actions
-import {habitsFetch, fetchDate} from '../actions';
+import {habitsFetch, fetchDate, changeScreen} from '../actions';
 
 class HabitList extends Component {
-  onClick() {
-    this.setState({
-      flag: !this.state.flag,
-    });
-  }
+  state = {
+    search: '',
+  };
 
-  SampleFunction = () => {
+  floatClicked = () => {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     Actions.creates();
   };
 
@@ -32,68 +28,60 @@ class HabitList extends Component {
     this.props.habitsFetch();
   }
 
+  renderList() {
+    if (this.props.habits.length === 0) {
+      return (
+        <View style={styles.noData}>
+          <Text>Click the button below to add the habits </Text>
+        </View>
+      );
+    }
+    return <List habits={this.props.habits} />;
+  }
+
   render() {
-    //[{id: 1, habit: 'abc', why: 'xyz'}]
-    //console.log(this.props.habits);
     return (
       <View style={styles.MainContainer}>
-        <FlatList
-          data={this.props.habits}
-          renderItem={({item}) => {
-            return <ListItem habit={item} />;
+        <Header
+          headerText="Your Habits"
+          search={this.state.search}
+          searchIcon={true}
+          onChangeText={text => {
+            this.setState({search: text});
           }}
-          keyExtractor={habit => habit.id.toString()}
         />
-        <TouchableOpacity
-          activeOpacity={0.5}
-          onPress={this.SampleFunction}
-          style={styles.TouchableOpacityStyle}>
-          <Image
-            source={{
-              uri:
-                'https://reactnativecode.com/wp-content/uploads/2017/11/Floating_Button.png',
-            }}
-            style={styles.FloatingButtonStyle}
-          />
-        </TouchableOpacity>
+
+        {this.renderList()}
+
+        <FloatingButton icon="plus" onPress={this.floatClicked} />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  MainContainer: {
+  MainContainer: {flex: 1},
+  noData: {
     flex: 1,
-  },
-
-  TouchableOpacityStyle: {
-    position: 'absolute',
-    width: widthToDp(20),
-    height: heightToDp(10),
-    alignItems: 'center',
+    flexDirection: 'column',
     justifyContent: 'center',
-    right: 30,
-    bottom: 30,
-  },
-
-  FloatingButtonStyle: {
-    resizeMode: 'contain',
-    width: 50,
-    height: 50,
+    alignItems: 'center',
   },
 });
 
 const mapStateToProps = state => {
-  const habits = _.map(state.habits.habit, (val, uid) => {
+  const {habit, screen} = state.habits;
+  const habits = _.map(habit, (val, uid) => {
     return {...val, uid};
   });
 
   return {
     habits,
+    screen,
   };
 };
 
 export default connect(
   mapStateToProps,
-  {habitsFetch, fetchDate},
+  {habitsFetch, fetchDate, changeScreen},
 )(HabitList);

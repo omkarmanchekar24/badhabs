@@ -1,13 +1,14 @@
 import {
-  NAME_CHANGED,
-  DATE_CHANGED,
-  WHY_CHANGED,
+  HABIT_UPDATE,
   CREATE_HABIT,
   CREATE_HABIT_FAILED,
   HABITS_FETCH_SUCCESS,
   DELETE_HABIT,
   FETCH_DATE,
+  CHANGE_SCREEN,
 } from '../actions/types';
+
+import {Home} from '../components/screens';
 
 const INITIAL_STATE = {
   name: '',
@@ -17,16 +18,13 @@ const INITIAL_STATE = {
   error: '',
   habit: {},
   selectedHabit: null,
+  screen: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case NAME_CHANGED:
-      return {...state, name: action.payload};
-    case DATE_CHANGED:
-      return {...state, date: action.payload};
-    case WHY_CHANGED:
-      return {...state, why: action.payload};
+    case HABIT_UPDATE:
+      return {...state, [action.payload.prop]: action.payload.value};
     case FETCH_DATE:
       return {...state, date: action.payload};
     case CREATE_HABIT:
@@ -39,6 +37,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...INITIAL_STATE,
         habit: state.habit.filter(item => item.id !== action.payload),
+      };
+    case CHANGE_SCREEN:
+      return {
+        ...INITIAL_STATE,
+        screen: action.payload,
       };
     default:
       return state;
