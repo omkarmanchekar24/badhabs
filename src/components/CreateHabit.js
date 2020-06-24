@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, ToastAndroid} from 'react-native';
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
 import moment from 'moment';
@@ -15,7 +15,7 @@ import Header from './common/Header';
 import FloatingButton from './common/FloatingButton';
 
 //ACTIONS
-import {habitUpdate, createHabit, fetchDate} from '../actions';
+import {habitUpdate, createHabit, fetchDate, changeScreen} from '../actions';
 import {heightToDp, widthToDp} from './Responsive';
 
 class CreateHabit extends Component {
@@ -41,6 +41,9 @@ class CreateHabit extends Component {
     this.props.fetchDate(date);
   }
 
+  componentWillUnmount() {
+    ToastAndroid.show('Unmounted', ToastAndroid.SHORT);
+  }
   render() {
     return (
       <View style={styles.MainContainer}>
@@ -105,16 +108,17 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  const {name, date, why, error} = state.habits;
+  const {name, date, why, error, screen} = state.habits;
   return {
     name,
     date,
     why,
     error,
+    screen,
   };
 };
 
 export default connect(
   mapStateToProps,
-  {habitUpdate, createHabit, fetchDate},
+  {habitUpdate, createHabit, fetchDate, changeScreen},
 )(CreateHabit);

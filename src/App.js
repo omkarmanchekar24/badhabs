@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {BackHandler} from 'react-native';
+import {Actions} from 'react-native-router-flux';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import ReduxThunk from 'redux-thunk';
@@ -12,6 +14,19 @@ import CreateTable from './res/manager/CreateTable';
 
 console.disableYellowBox = true;
 class App extends Component {
+  componentDidMount() {
+    //ToastAndroid.show('Mounted', ToastAndroid.SHORT);
+    BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.handleBackButton.bind(this),
+    );
+  }
+
+  handleBackButton() {
+    if (Actions.currentScene === 'habitList') {
+      BackHandler.exitApp();
+    }
+  }
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     return (

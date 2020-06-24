@@ -13,6 +13,7 @@ import {
   HABITS_FETCH_SUCCESS,
   DELETE_HABIT,
   FETCH_DATE,
+  CHANGE_SCREEN,
 } from './types';
 
 var db = SQLite.openDatabase(
@@ -141,5 +142,12 @@ export const fetchDate = date => {
   return {
     type: FETCH_DATE,
     payload: date,
+  };
+};
+
+export const changeScreen = screen => {
+  return {
+    type: CHANGE_SCREEN,
+    payload: screen,
   };
 };

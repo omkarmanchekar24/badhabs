@@ -5,7 +5,10 @@ import {
   HABITS_FETCH_SUCCESS,
   DELETE_HABIT,
   FETCH_DATE,
+  CHANGE_SCREEN,
 } from '../actions/types';
+
+import {Home} from '../components/screens';
 
 const INITIAL_STATE = {
   name: '',
@@ -15,6 +18,7 @@ const INITIAL_STATE = {
   error: '',
   habit: {},
   selectedHabit: null,
+  screen: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -33,6 +37,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...INITIAL_STATE,
         habit: state.habit.filter(item => item.id !== action.payload),
+      };
+    case CHANGE_SCREEN:
+      return {
+        ...INITIAL_STATE,
+        screen: action.payload,
       };
     default:
       return state;

@@ -1,13 +1,19 @@
 import React, {Component} from 'react';
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, ToastAndroid} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {widthToDp} from '../components/Responsive';
 import {Card, Title, Paragraph} from 'react-native-paper';
 
+//Components
 import Header from './common/Header';
 import FloatingButton from './common/FloatingButton';
 
-export default class HabitDetails extends Component {
+//Actions
+import {changeScreen} from '../actions/';
+
+import {connect} from 'react-redux';
+
+class HabitDetails extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
@@ -76,3 +82,14 @@ const styles = {
   titleStyle: {fontSize: widthToDp(5), alignSelf: 'center'},
   paragraphStyle: {fontSize: widthToDp(3), alignSelf: 'center'},
 };
+
+const mapStateToProps = state => {
+  return {
+    screen: state.habits.screen,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {changeScreen},
+)(HabitDetails);

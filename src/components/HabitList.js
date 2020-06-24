@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, ToastAndroid, BackHandler} from 'react-native';
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
 //import {widthToDp, heightToDp} from './Responsive';
@@ -10,8 +10,9 @@ import {Actions} from 'react-native-router-flux';
 import Header from './common/Header';
 import FloatingButton from './common/FloatingButton';
 import List from './List';
+
 //Actions
-import {habitsFetch, fetchDate} from '../actions';
+import {habitsFetch, fetchDate, changeScreen} from '../actions';
 
 class HabitList extends Component {
   state = {
@@ -19,6 +20,7 @@ class HabitList extends Component {
   };
 
   floatClicked = () => {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     Actions.creates();
   };
 
@@ -38,7 +40,6 @@ class HabitList extends Component {
   }
 
   render() {
-    console.log(this.props.habits);
     return (
       <View style={styles.MainContainer}>
         <Header
@@ -69,16 +70,18 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  const habits = _.map(state.habits.habit, (val, uid) => {
+  const {habit, screen} = state.habits;
+  const habits = _.map(habit, (val, uid) => {
     return {...val, uid};
   });
 
   return {
     habits,
+    screen,
   };
 };
 
 export default connect(
   mapStateToProps,
-  {habitsFetch, fetchDate},
+  {habitsFetch, fetchDate, changeScreen},
 )(HabitList);
