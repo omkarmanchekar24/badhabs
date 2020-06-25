@@ -41,9 +41,6 @@ class CreateHabit extends Component {
     this.props.fetchDate(date);
   }
 
-  componentWillUnmount() {
-    ToastAndroid.show('Unmounted', ToastAndroid.SHORT);
-  }
   render() {
     return (
       <View style={styles.MainContainer}>

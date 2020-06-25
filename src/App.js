@@ -15,7 +15,6 @@ import CreateTable from './res/manager/CreateTable';
 console.disableYellowBox = true;
 class App extends Component {
   componentDidMount() {
-    //ToastAndroid.show('Mounted', ToastAndroid.SHORT);
     BackHandler.addEventListener(
       'hardwareBackPress',
       this.handleBackButton.bind(this),
