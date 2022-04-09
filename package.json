@@ -12,7 +12,7 @@
   "dependencies": {
     "@react-native-community/datetimepicker": "^2.4.0",
     "lodash": "^4.17.15",
-    "moment": "^2.26.0",
+    "moment": "^2.29.2",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-24h-timepicker": "^1.1.0",
